@@ -1,0 +1,21 @@
+{
+  "name": "schedule-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "env HIBERNATE_PATH=__hibernated__ HIBERNATE_FILENAME=state.json ./node_modules/mocha/bin/mocha"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "buckets-js": "^1.98.2",
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-fs": "^2.0.0",
+    "mocha": "^5.2.0"
+  }
+}
