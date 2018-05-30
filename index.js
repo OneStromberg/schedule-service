@@ -13,7 +13,7 @@ if (data) {
   tasks = Task.parse(data);
 }
 
-const queue = new Queue(tasks, Task.compare);
+const queue = new Queue(tasks || [], Task.compare);
 const emmiter = new Emmiter(server)
 const scheduler = new Scheduler(queue, emmiter);
 

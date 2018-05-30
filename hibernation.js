@@ -1,4 +1,4 @@
-const { writeFileSync, readFileSync, existsSync } = require('fs');
+const { writeFileSync, readFileSync, existsSync, mkdirSync } = require('fs');
 
 const StateDir = process.env.HIBERNATE_PATH || "__hibernated__";
 const StateFile = process.env.HIBERNATE_FILENAME || 'state.json';
@@ -12,6 +12,9 @@ class Hibernation {
     return null;
   }
   static save(data) {
+    if (!existsSync(StatePath)) {
+      mkdirSync(StateDir);
+    }
     writeFileSync(StatePath, data, 'utf8');
   }
 }
