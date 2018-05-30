@@ -5,6 +5,8 @@ chai.use(require('chai-fs'));
 
 var Task = require('./../task');
 var Queue = require('./../queue');
+var Scheduler = require('./../scheduler');
+var Hibernation = require('./../hibernation');
 let nowSeconds = parseInt(Date.now() / 1000);
 
 describe('Task', function() {
@@ -75,6 +77,50 @@ describe('Queue', function() {
     it('function shouldn`t throw error', function() {
       expect(queue.hibernate).to.be.a('function');
       expect(() => queue.hibernate()).to.not.throw();
+    });
+  });
+});
+
+describe('Scheduler', function() {
+  let scheduler;
+  let task0 = new Task(0, nowSeconds + 999, 2);
+  let task1 = new Task(10, nowSeconds + 1, 12);
+  let task2 = new Task(101, nowSeconds + 1000, 102);
+
+  let hibernate = (data) => data;
+  let queue = new Queue([task0, task1, task2], Task.compare, hibernate);
+  let emiter = { emit: (data) => data };
+  describe('create Scheduler with wrong arguments', function() {
+    it('should throw error', function() {
+      expect(function(){
+        new Scheduler();
+      }).to.throw('missing required field(s)');
+    });
+  });
+  describe('create Scheduler with queue and mocked emiter', function() {
+    it('should return instanceof Scheduler', function() {
+      expect(scheduler = new Scheduler(queue, emiter)).to.be.instanceof(Scheduler);
+    });
+  });
+  describe('starting scheduling', function(){
+    it('start function exists', () => {
+      expect(scheduler.start).to.be.a('function');
+    });
+    it('waiting for emiting task in 1 second', function(done) {
+      expect(() => scheduler = new Scheduler(queue, { emit: (data) => {
+        if (task1 == data) {
+          done();
+        } else {
+          done(data);
+        }
+      }})).to.not.throw();
+      expect(() => scheduler.start()).to.not.throw();
+    });
+    it('next task', () => {
+      assert.equal(queue.peek(), task0);
+    });
+    it('stop function exists and works', () => {
+      expect(() => scheduler.stop()).to.not.throw();
     });
   });
 });

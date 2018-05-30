@@ -1,20 +1,10 @@
 const { PriorityQueue } = require('buckets-js');
-const Hibernation = require('./hibernation');
 
-function hibernate() {
-  return new Promise((resolve, reject) => {
-    var array = this.toArray();
-    if (array && Array.isArray(array)) {
-      Hibernation.save(JSON.stringify(array));
-      resolve();
-    } else {
-      reject();
-    }
-  });
+function toJSON(){
+  return this.toArray();
 }
-
 class Queue extends PriorityQueue {
-  constructor(data, compare) {
+  constructor(data, compare, hibernate) {
     if (!data || !compare) {
       throw new Error('missing required field(s)');
     }
@@ -24,7 +14,8 @@ class Queue extends PriorityQueue {
     } else {
       this.add(data);
     }
-    this.hibernate = hibernate.bind(this);
+    this.toJSON = toJSON.bind(this);
+    this.hibernate = hibernate ? hibernate.bind(this) : () => {};
   }
 }
 

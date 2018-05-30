@@ -17,6 +17,16 @@ class Hibernation {
     }
     writeFileSync(StatePath, data, 'utf8');
   }
+  static hibernate() {
+    return new Promise((resolve, reject) => {
+      if (this) {
+        Hibernation.save(JSON.stringify(this));
+        resolve();
+      } else {
+        reject();
+      }
+    });
+  }
 }
 
 module.exports = Hibernation;

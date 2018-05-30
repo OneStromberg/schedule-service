@@ -7,10 +7,13 @@ function shouldExecute(task) {
 var intervalId = null;
 
 class Scheduler {
-  constructor(queue, emmiter){
+  constructor(queue, emiter){
+    if (!queue || !emiter) {
+      throw new Error('missing required field(s)');
+    }
     this.queue = queue;
     this.dirty = true;
-    this.emmiter = emmiter;
+    this.emiter = emiter;
     this.currentTask = queue.peek();
 
     this.addTask = this.addTask.bind(this);
@@ -26,7 +29,7 @@ class Scheduler {
 
     if (this.currentTask) {
       if (shouldExecute(this.currentTask)){
-        this.emmiter.emit(this.currentTask);
+        this.emiter.emit(this.currentTask);
         this.takeNextTask();
       }
     }

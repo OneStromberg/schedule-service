@@ -1,4 +1,4 @@
-class Emmiter {
+class Emiter {
   constructor(server) {
     this.io = require('socket.io')(server);
     this.emit = this.emit.bind(this);
@@ -23,4 +23,4 @@ class Emmiter {
   }
 }
 
-module.exports = Emmiter;
+module.exports = Emiter;

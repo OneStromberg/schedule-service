@@ -1,11 +1,13 @@
 Schedule Service
 =
 To add new task client should:
->call POST request with query params:
-* <`Integer`> client
-* <`Integer`> date in <i>seconds
-* <`String`> task
->Connect to the server with `web-sockets` such as [socket.io](https://socket.io/), pass **clientId** to it and listen to **task** channel
+
+1. Connect to the server with `web-sockets` such as [socket.io](https://socket.io/), pass **clientId** to it and listen to **task** channel
+
+2. call POST request with query params:
+- <`Integer`> client
+- <`Integer`> date in seconds<b>!</b>
+- <`String`> task
 ---
 ```javascript
 const ServerURI = 'https://stro-schedule-service.herokuapp.com'
