@@ -16,14 +16,14 @@ class Hibernation {
       mkdirSync(StateDir);
     }
     writeFileSync(StatePath, data, 'utf8');
+    return data;
   }
   static hibernate() {
     return new Promise((resolve, reject) => {
       if (this) {
-        Hibernation.save(JSON.stringify(this));
-        resolve();
+        resolve(Hibernation.save(JSON.stringify(this)));
       } else {
-        reject();
+        reject('missing hibertation object');
       }
     });
   }
