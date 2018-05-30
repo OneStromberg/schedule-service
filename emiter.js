@@ -8,15 +8,15 @@ class Emiter {
     this.io.use(this.handshake);
   }
   handshake(socket, next){
-    var { clientId } = socket.handshake.query;
-    if (clientId) {
-      socket.on('disconnect', () => this.onDisconnect(socket, clientId));
-      socket.join(clientId);
+    var { client } = socket.handshake.query;
+    if (client) {
+      socket.on('disconnect', () => this.onDisconnect(socket, client));
+      socket.join(client);
       next();
     }
   }
-  onDisconnect(socket, clientId){
-    socket.leave(clientId);
+  onDisconnect(socket, client){
+    socket.leave(client);
   }
   emit({clientId, taskId}){
     this.io.to(clientId).emit('task', taskId);
