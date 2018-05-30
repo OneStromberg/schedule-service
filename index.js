@@ -1,5 +1,6 @@
 const app = require('express')();
 const server = require('http').Server(app);
+
 const Scheduler = require('./scheduler');
 const Emmiter = require('./emmiter');
 const Queue = require('./queue');
@@ -19,8 +20,12 @@ const scheduler = new Scheduler(queue, emmiter);
 server.listen(process.env.PORT || 8091);
 scheduler.start();
 
+app.get('/', (req, res) => {
+  res.send(`There are ${queue.size()} tasks in the queue`).end();
+})
+
 app.post('/task', (req, res) => {
   const { client, date, task } = req.query;
   scheduler.addTask(client, date, task);
-  res.send(200);
+  res.sendStatus(200);
 });

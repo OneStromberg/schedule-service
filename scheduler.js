@@ -1,7 +1,7 @@
 const Task = require('./task');
 
 function shouldExecute(task) {
-  return task.date >= (Date.now() / 1000);
+  return task.date <= (Date.now() / 1000);
 }
 
 var intervalId = null;

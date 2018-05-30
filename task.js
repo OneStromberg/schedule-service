@@ -21,9 +21,6 @@ class Task {
     if (clientId == null || date == null || taskId == null) {
       throw new Error('missing required field(s)');
     }
-    if (date < (Date.now() / 1000)) {
-      throw new Error('task should be undertaken in the future');
-    }
     this.clientId = clientId;
     this.date = date;
     this.taskId = taskId;

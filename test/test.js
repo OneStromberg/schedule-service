@@ -75,15 +75,6 @@ describe('Queue', function() {
     it('function shouldn`t throw error', function() {
       expect(queue.hibernate).to.be.a('function');
       expect(() => queue.hibernate()).to.not.throw();
-      //expect(path).to.have.basename(name, ?msg);
-    });
-  });
-});
-
-describe('Scheduler', function() {
-  describe('#indexOf()', function() {
-    it('should return -1 when the value is not present', function() {
-      assert.equal([1,2,3].indexOf(4), -1);
     });
   });
 });
