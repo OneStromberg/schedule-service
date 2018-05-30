@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "env HIBERNATE_PATH=__hibernated__ HIBERNATE_FILENAME=state.json ./node_modules/mocha/bin/mocha",
-    "start": "PORT=8030 node index.js"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
